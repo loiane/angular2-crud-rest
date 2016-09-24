@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {User} from '../shared/user';
-import {UsersService} from '../shared/users.service';
+
+import { User } from '../shared/user';
+import { UsersService } from '../shared/users.service';
+import { BasicValidators } from '../../shared/basic-validators';
 
 @Component({
   selector: 'app-user-form',
@@ -16,20 +18,27 @@ export class UserFormComponent implements OnInit {
   user: User = new User();
 
   constructor(
-    fb: FormBuilder,
+    formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private usersService: UsersService
   ) {
-    this.form = fb.group({
-      name: ['', Validators.required],
-      email: [],
+    this.form = formBuilder.group({
+      name: ['', [
+        Validators.required,
+        Validators.minLength(3)
+      ]],
+      email: ['', [
+        Validators.required,
+        BasicValidators.email
+        //Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+      ]],
       phone: [],
-      address: fb.group({
-        street: [],
+      address: formBuilder.group({
+        street: ['', Validators.minLength(3)],
         suite: [],
-        city: [],
-        zipcode: []
+        city: ['', Validators.maxLength(30)],
+        zipcode: ['', Validators.pattern('^([0-9]){5}([-])([0-9]){4}$')]
       })
     });
   }
@@ -52,5 +61,9 @@ export class UserFormComponent implements OnInit {
             }
           });
     });
+  }
+
+  save() {
+    console.log(this.form);
   }
 }
