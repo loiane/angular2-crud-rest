@@ -23,6 +23,21 @@ export class UsersService {
       .map(res => res.json());
   }
 
+  addUser(user){
+    return this.http.post(this.url, JSON.stringify(user))
+      .map(res => res.json());
+  }
+
+  updateUser(user){
+    return this.http.put(this.getUserUrl(user.id), JSON.stringify(user))
+      .map(res => res.json());
+  }
+
+  deleteUser(id){
+    return this.http.delete(this.getUserUrl(id))
+      .map(res => res.json());
+  }
+
   private getUserUrl(id){
     return this.url + "/" + id;
   }

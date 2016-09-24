@@ -64,6 +64,15 @@ export class UserFormComponent implements OnInit {
   }
 
   save() {
-    console.log(this.form);
+    var result,
+        userValue = this.form.value;
+
+    if (userValue.id){
+      result = this.usersService.updateUser(userValue);
+    } else {
+      result = this.usersService.addUser(userValue);
+    }
+
+    result.subscribe(data => this.router.navigate(['users']));
   }
 }
