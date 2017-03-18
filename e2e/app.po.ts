@@ -1,6 +1,6 @@
-import { browser, element, by } from 'protractor/globals';
+import { browser, element, by } from 'protractor';
 
-export class Angular2CrudRestPage {
+export class AngularCrudRestPage {
   navigateTo() {
     return browser.get('/');
   }

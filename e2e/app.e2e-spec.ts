@@ -1,10 +1,10 @@
-import { Angular2CrudRestPage } from './app.po';
+import { AngularCrudRestPage } from './app.po';
 
-describe('angular2-crud-rest App', function() {
-  let page: Angular2CrudRestPage;
+describe('angular-crud-rest App', () => {
+  let page: AngularCrudRestPage;
 
   beforeEach(() => {
-    page = new Angular2CrudRestPage();
+    page = new AngularCrudRestPage();
   });
 
   it('should display message saying app works', () => {
